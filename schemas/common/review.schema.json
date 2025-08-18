@@ -1,1 +1,20 @@
-{"$schema": "https://json-schema.org/draft/2020-12/schema"}
+{
+  "$id": "https://openpeep.org/schemas/2025-08/common/review.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review & Version Block",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "in_review", "approved", "rejected", "superseded"] },
+    "version": { "type": "string", "description": "Document version (SemVer recommended)" },
+    "created_by": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "reviewed_by": { "type": "string" },
+    "reviewed_at": { "type": "string", "format": "date-time" },
+    "next_review_due": { "type": "string", "format": "date" },
+    "change_notes": { "type": "string" },
+    "supersedes": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["status", "version", "created_by", "created_at"]
+}

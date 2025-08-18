@@ -1,1 +1,46 @@
-{"$schema": "https://json-schema.org/draft/2020-12/schema"}
+{
+  "$id": "https://openpeep.org/schemas/2025-08/common/address.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UK Address (with internal building identifiers)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "SemVer for this schema consumer",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "uprn": { "type": "string", "description": "Unique Property Reference Number if known" },
+    "building_name": { "type": "string" },
+    "sub_building_name": { "type": "string" },
+    "thoroughfare": { "type": "string", "description": "Street line 1" },
+    "thoroughfare_2": { "type": "string", "description": "Street line 2" },
+    "locality": { "type": "string" },
+    "town": { "type": "string" },
+    "county": { "type": "string" },
+    "postcode": {
+      "type": "string",
+      "description": "UK postcode (uppercase, spaced)",
+      "pattern": "^[A-Z]{1,2}\\d[A-Z\\d]? \\d[A-Z]{2}$"
+    },
+    "country_code": { "type": "string", "const": "GB" },
+    "latitude": { "type": "number" },
+    "longitude": { "type": "number" },
+    "what3words": { "type": "string" },
+    "internal_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "building_id": { "type": "string" },
+        "section": { "type": "string", "description": "Vertical column identifier" },
+        "level": { "type": "string", "description": "Floor/elevation identifier" },
+        "zone": { "type": "string", "description": "Logical grouping of areas" },
+        "area": { "type": "string", "description": "Enclosed space name/number (e.g., Flat 12)" },
+        "unit_identifier": { "type": "string" },
+        "doorway": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  },
+  "required": ["postcode", "country_code"]
+}

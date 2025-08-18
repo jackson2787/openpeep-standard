@@ -1,1 +1,12 @@
-{"example": "consent"}
+{
+  "schema_version": "1.0.0",
+  "consent_id": "b1111111-2222-3333-4444-555555555555",
+  "subject_id": "6e0a94a4-2b2a-4d49-9d8e-3b19a2f2f9c1",
+  "status": "given",
+  "scope": ["PCFRA", "PEEP", "RPEEP", "EES", "DataProcessing"],
+  "method": "digital",
+  "actor": { "name": "Alex Taylor", "role": "Resident" },
+  "recorded_at": "2025-08-12T09:00:00Z",
+  "expires_at": "2027-08-12T09:00:00Z",
+  "notes": "Resident consented via portal."
+}

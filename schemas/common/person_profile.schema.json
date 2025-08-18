@@ -1,1 +1,64 @@
-{"$schema": "https://json-schema.org/draft/2020-12/schema"}
+{
+  "$id": "https://openpeep.org/schemas/2025-08/common/person_profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Person Profile (minimal)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "person_id": { "type": "string", "format": "uuid" },
+    "name": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "given": { "type": "string" },
+        "family": { "type": "string" },
+        "preferred": { "type": "string" },
+        "honorific": { "type": "string" }
+      },
+      "required": ["given", "family"]
+    },
+    "year_of_birth": { "type": "integer", "minimum": 1900, "maximum": 2100 },
+    "primary_language": { "type": "string" },
+    "communication_preferences": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["spoken", "BSL", "Makaton", "SMS", "email", "visual_alarm", "vibrating_pager", "tactile_alert"]
+      },
+      "uniqueItems": true
+    },
+    "impairments_summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["mobility", "respiratory", "vision", "hearing", "cognitive", "communication", "awareness"]
+          },
+          "severity": { "type": "string", "enum": ["none", "mild", "moderate", "severe"] },
+          "description": { "type": "string" }
+        },
+        "required": ["category", "severity"]
+      }
+    },
+    "assistive_devices": { "type": "array", "items": { "type": "string" } },
+    "emergency_contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "relationship": { "type": "string" },
+          "phone": { "type": "string" },
+          "email": { "type": "string", "format": "email" }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  "required": ["person_id", "name"]
+}

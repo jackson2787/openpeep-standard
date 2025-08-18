@@ -1,1 +1,84 @@
-{"$schema": "https://json-schema.org/draft/2020-12/schema"}
+{
+  "$id": "https://openpeep.org/schemas/2025-08/peep.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Personal Emergency Evacuation Plan (PEEP)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "peep_id": { "type": "string", "format": "uuid" },
+    "person_profile": { "$ref": "https://openpeep.org/schemas/2025-08/common/person_profile.schema.json" },
+    "location": { "$ref": "https://openpeep.org/schemas/2025-08/common/address.schema.json" },
+    "evacuation_strategy": { "type": "string", "enum": ["Stay Put", "Simultaneous Evacuation", "Phased Evacuation", "Partial Evacuation"] },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "description": "e.g., Primary, Secondary" },
+          "path_description": { "type": "string" },
+          "via_structural_elements": { "type": "array", "items": { "type": "string" } },
+          "assistance": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": { "type": "string", "enum": ["evac_chair","buddy_pair","carry_down","guided_evacuate","lift_with_attendant"] },
+                "persons_required": { "type": "integer", "minimum": 0 },
+                "notes": { "type": "string" }
+              },
+              "required": ["type"]
+            }
+          },
+          "equipment": { "type": "array", "items": { "type": "string" } },
+          "refuge": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "location": { "type": "string" },
+              "wait_condition": { "type": "string" }
+            }
+          },
+          "notes": { "type": "string" }
+        },
+        "required": ["name", "path_description"]
+      }
+    },
+    "communications": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alarm_hearing_ability": { "type": "string", "enum": ["hears_audible","needs_visual","needs_vibration","unknown"] },
+        "alerting_methods": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "nighttime_considerations": { "type": "string" },
+    "training_drills": { "type": "string" },
+    "medical_considerations": { "type": "string" },
+    "evacuation_procedure": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "order": { "type": "integer", "minimum": 1 },
+          "instruction": { "type": "string" }
+        },
+        "required": ["order", "instruction"]
+      }
+    },
+    "references": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pcfra_id": { "type": "string" },
+        "building_statement_ees_id": { "type": "string" }
+      }
+    },
+    "consent": { "$ref": "https://openpeep.org/schemas/2025-08/common/consent.schema.json" },
+    "review": { "$ref": "https://openpeep.org/schemas/2025-08/common/review.schema.json" }
+  },
+  "required": ["peep_id", "person_profile", "location", "evacuation_strategy", "routes", "evacuation_procedure", "review"]
+}

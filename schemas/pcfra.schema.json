@@ -1,1 +1,65 @@
-{"$schema": "https://json-schema.org/draft/2020-12/schema"}
+{
+  "$id": "https://openpeep.org/schemas/2025-08/pcfra.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Person-Centred Fire Risk Assessment (PCFRA)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "pcfra_id": { "type": "string", "format": "uuid" },
+    "subject": { "$ref": "https://openpeep.org/schemas/2025-08/common/person_profile.schema.json" },
+    "location": { "$ref": "https://openpeep.org/schemas/2025-08/common/address.schema.json" },
+    "assessment_date": { "type": "string", "format": "date" },
+    "assessor": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "organisation": { "type": "string" }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+    "consent": { "$ref": "https://openpeep.org/schemas/2025-08/common/consent.schema.json" },
+    "risk_factors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "mobility","vision","hearing","cognitive","communication","awareness",
+              "smoking","hoarding","medication_alcohol_drugs","oxygen_therapy","medical_devices",
+              "alarms_detection","cooking","heating","night_time","bedbound","security_bars_grilles","clutter_combustibility"
+            ]
+          },
+          "score": { "type": "integer", "minimum": 0, "maximum": 3, "description": "0=None, 1=Mild, 2=Significant, 3=Severe" },
+          "rationale": { "type": "string" },
+          "mitigations": { "type": "array", "items": { "type": "string" } },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "action": { "type": "string" },
+                "owner": { "type": "string" },
+                "due_date": { "type": "string", "format": "date" },
+                "status": { "type": "string", "enum": ["open","in_progress","done","not_applicable"] }
+              },
+              "required": ["action"]
+            }
+          }
+        },
+        "required": ["category", "score"]
+      }
+    },
+    "total_score": { "type": "integer", "minimum": 0 },
+    "risk_rating": { "type": "string", "enum": ["low","medium","high","very_high"] },
+    "recommended_review_in_days": { "type": "integer", "minimum": 0 },
+    "review": { "$ref": "https://openpeep.org/schemas/2025-08/common/review.schema.json" }
+  },
+  "required": ["pcfra_id", "subject", "location", "assessment_date", "risk_factors", "review"]
+}
