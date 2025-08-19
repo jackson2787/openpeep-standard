@@ -1,0 +1,21 @@
+{
+  "person_ref": "res-456789",
+  "name": "Margaret Smith",
+  "dob": "1942-06-14",
+  "contact": {
+    "phone": "+44 7700 900123",
+    "email": "margaret.smith@example.org"
+  },
+  "preferred_language": "en",
+  "age_band": "older_adult",
+  "communication_preferences": {
+    "channels": ["email", "postal"],
+    "format_preferences": [
+      "large_print",
+      "high_contrast",
+      "alt_text_required",
+      "written_only"
+    ],
+    "consent_ref": "consent-98765"
+  }
+}
