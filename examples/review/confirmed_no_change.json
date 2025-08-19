@@ -1,0 +1,14 @@
+{
+  "reviewed_at": "2025-08-15T10:32:11Z",
+  "reviewed_by": {
+    "name": "Alex Morgan",
+    "role": "Responsible Person delegate",
+    "organisation": "Harbour View Housing Ltd",
+    "contact": {
+      "email": "alex.morgan@example.org"
+    }
+  },
+  "outcome": "confirmed_no_change",
+  "summary": "Annual review: no changes in resident needs, evacuation strategy, or building systems relevant to this document. Detector maintenance up to date and no material alterations noted.",
+  "next_due": "2026-08-15"
+}
