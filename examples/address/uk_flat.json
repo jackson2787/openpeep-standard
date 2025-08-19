@@ -1,0 +1,13 @@
+{
+  "organisation_name": "Acme Housing Association",
+  "building_name": "Churchill House",
+  "sub_building": "Flat 12A",
+  "address_line_1": "High Street",
+  "town_city": "Bristol",
+  "county": "Somerset",
+  "postcode": "BS1 4ST",
+  "country_code": "GB",
+  "uprn": "100021066953",
+  "building_ref": "BLDG-001",
+  "unit_ref": "UNIT-12A"
+}
