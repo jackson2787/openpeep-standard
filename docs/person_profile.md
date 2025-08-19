@@ -11,8 +11,7 @@ This schema:
 - Provides hooks for lawful communication preferences under the Equality Act 2010.  
 
 This schema is **not** for:  
-- Recording impairments, evacuation needs, or medical data (these belong in PCFRA/PEEP).  
-- Storing building data, routing logic, QR/NFC references, or Fire & Rescue Service Risk Records (FRS RR).  
+- Recording impairments, evacuation needs, or medical data (these belong in PCFRA/PEEP).
 
 ### Example use cases  
 - **Hotel guest:** only an alias + system reference.  
