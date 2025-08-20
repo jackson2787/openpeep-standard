@@ -1,65 +1,358 @@
 {
-  "$id": "https://openpeep.org/schemas/2025-08/pcfra.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpeep-standard.org/schemas/pcfra/pcfra.schema.json",
   "title": "Person-Centred Fire Risk Assessment (PCFRA)",
+  "description": "Captures outputs of a person-centred assessment focusing on functional evacuation capability and decision flags that may trigger a (R)PEEP. Stores observations and functional needs only\u2014no medical diagnoses.",
+  "$comment": "Regulatory alignment: Fire Safety (Residential Evacuation Plans) (England) Regulations 2025 (from Apr 2026); Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010 (reasonable adjustments); Approved Document B (Fire Safety); NFCC Person-Centred Fire Risk Framework.",
   "type": "object",
-  "additionalProperties": false,
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "pcfra_id": { "type": "string", "format": "uuid" },
-    "subject": { "$ref": "https://openpeep.org/schemas/2025-08/common/person_profile.schema.json" },
-    "location": { "$ref": "https://openpeep.org/schemas/2025-08/common/address.schema.json" },
-    "assessment_date": { "type": "string", "format": "date" },
-    "assessor": {
-      "type": "object",
-      "properties": {
-        "name": { "type": "string" },
-        "role": { "type": "string" },
-        "organisation": { "type": "string" }
-      },
-      "required": ["name"],
-      "additionalProperties": false
+    "pcfra_id": {
+      "type": "string",
+      "description": "Stable identifier for this PCFRA record (e.g. UUID)."
     },
-    "consent": { "$ref": "https://openpeep.org/schemas/2025-08/common/consent.schema.json" },
-    "risk_factors": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "category": {
+    "version": {
+      "type": "string",
+      "description": "Schema/document version tag for auditability."
+    },
+    "person_ref": {
+      "type": "string",
+      "description": "Identifier linking to the Person Profile in the host system."
+    },
+    "building_ref": {
+      "type": "string",
+      "description": "Identifier for the relevant building/facility. Use when unit_ref is not applicable."
+    },
+    "unit_ref": {
+      "type": "string",
+      "description": "Identifier for a specific unit/flat/room within a building."
+    },
+    "assessed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the assessment."
+    },
+    "assessor_role": {
+      "type": "string",
+      "description": "Role/capacity of the person recording the assessment (e.g. housing_officer, fire_safety_advisor, self)."
+    },
+    "assessment_method": {
+      "type": "string",
+      "enum": [
+        "phone",
+        "digital_self",
+        "in_person"
+      ],
+      "description": "How the assessment was performed."
+    },
+    "confidence_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Overall confidence in the information captured, considering method and context."
+    },
+    "consent_ref": {
+      "type": "string",
+      "description": "Link to a Consent record (given/refused/withdrawn) in common/consent."
+    },
+    "capability": {
+      "type": "object",
+      "description": "Functional evacuation capabilities and supports required. Use functional phrases; avoid diagnoses.",
+      "properties": {
+        "walking_endurance": {
+          "type": "string",
+          "description": "Functional ability to sustain walking to an exit (e.g. normal_pace, needs_frequent_breaks, limited_distance)."
+        },
+        "respiratory_tolerance": {
+          "type": "string",
+          "description": "Breathing-related tolerance during evacuation (e.g. normal, mild_breathlessness_on_exertion, frequent_breaks_required, oxygen_support_needed)."
+        },
+        "mobility_transfer": {
+          "type": "string",
+          "description": "Ability to stand, pivot, or transfer (e.g. independent_transfer, stand_pivot_with_support)."
+        },
+        "stair_tolerance": {
+          "type": "string",
+          "description": "Functional tolerance for stairs (e.g. stairs_independent, stairs_with_assist, cannot_use_stairs)."
+        },
+        "mobility_aid": {
+          "type": "string",
+          "description": "Primary mobility aid used (e.g. none, stick, frame, wheelchair_manual, wheelchair_powered, assisted_walking)."
+        },
+        "hearing_support": {
+          "type": "string",
+          "description": "Support required for alerts/communication (e.g. hearing_aid, visual_alerts_required, vibrating_pager)."
+        },
+        "vision_support": {
+          "type": "string",
+          "description": "Support required for wayfinding/alerts (e.g. high_contrast_signage, tactile_guidance)."
+        },
+        "cognition_support": {
+          "type": "string",
+          "description": "Support with understanding/decision-making (e.g. step_by_step_prompts, carer_guidance_required)."
+        },
+        "communication_support": {
+          "type": "string",
+          "description": "Preferred/required methods (e.g. plain_language, BSL, AAC_device, text_only)."
+        },
+        "night_response": {
+          "type": "string",
+          "description": "Likely responsiveness when asleep (e.g. wakes_to_alarm, requires_vibrating_pillow, deep_sleeper_support)."
+        },
+        "alertness_support": {
+          "type": "string",
+          "description": "If reactions when awake may require prompts/adjustments (optional companion to night_response)."
+        },
+        "equipment_dependency": {
+          "type": "string",
+          "description": "Critical equipment affecting evacuation (e.g. oxygen_therapy, powered_bed)."
+        },
+        "behavioural_risks": {
+          "type": "array",
+          "description": "Observed behaviours increasing risk (observable, non-diagnostic).",
+          "items": {
             "type": "string",
             "enum": [
-              "mobility","vision","hearing","cognitive","communication","awareness",
-              "smoking","hoarding","medication_alcohol_drugs","oxygen_therapy","medical_devices",
-              "alarms_detection","cooking","heating","night_time","bedbound","security_bars_grilles","clutter_combustibility"
+              "smoking_in_bed",
+              "hoarding_observed",
+              "aggressive_towards_staff",
+              "non_cooperation_with_safety_guidance",
+              "confusion_in_emergency",
+              "substances_present",
+              "fire_setting_behaviour",
+              "other_observed"
             ]
-          },
-          "score": { "type": "integer", "minimum": 0, "maximum": 3, "description": "0=None, 1=Mild, 2=Significant, 3=Severe" },
-          "rationale": { "type": "string" },
-          "mitigations": { "type": "array", "items": { "type": "string" } },
-          "actions": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "action": { "type": "string" },
-                "owner": { "type": "string" },
-                "due_date": { "type": "string", "format": "date" },
-                "status": { "type": "string", "enum": ["open","in_progress","done","not_applicable"] }
-              },
-              "required": ["action"]
-            }
           }
         },
-        "required": ["category", "score"]
+        "assist_required": {
+          "type": "string",
+          "description": "Summary of human assistance required (e.g. none, needs_assist_1, needs_assist_2)."
+        },
+        "equipment_needed": {
+          "type": "array",
+          "description": "Evacuation equipment likely required (e.g. evac_chair_required, transfer_board, evacuation_sheet).",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "description": "Observed home/environmental risks that affect ignition likelihood or evacuation safety. Record observations only; no diagnoses.",
+      "properties": {
+        "cooking_risk": {
+          "type": "string",
+          "description": "E.g. unattended_cooking, chip_pan_use, clutter_near_hob, oxygen_near_hob."
+        },
+        "electrical_risk": {
+          "type": "string",
+          "description": "E.g. socket_covers_removed, overloaded_extensions, damaged_cables, DIY_wiring, heaters_on_extension."
+        },
+        "smoking_risk": {
+          "type": "string",
+          "description": "E.g. heavy_indoor_smoking, careless_disposal."
+        },
+        "hoarding_risk": {
+          "type": "string",
+          "description": "E.g. pathways_narrowed, combustible_load_high, doors_blocked."
+        },
+        "access_egress": {
+          "type": "string",
+          "description": "E.g. exit_blocked, exit_partially_blocked, key_management_issue."
+        },
+        "ignition_sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Observed ignition sources of concern (e.g. candles_unattended, multiple_space_heaters, open_flame)."
+        },
+        "pets_risk": {
+          "type": "string",
+          "description": "E.g. large_dogs_impeding_exit, pet_cages_blocking_route."
+        }
+      },
+      "additionalProperties": false
+    },
+    "safeguarding": {
+      "type": "object",
+      "description": "Escalation and multi\u2011agency context (no detailed police/medical data).",
+      "properties": {
+        "asb_violence_risk": {
+          "type": "string",
+          "description": "E.g. ASB_reported, threats_to_staff, police_attendance_history (no case details)."
+        },
+        "agency_involved": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "police",
+              "adult_social_care",
+              "mental_health_team",
+              "landlord_housing",
+              "fire_and_rescue",
+              "other_agency"
+            ]
+          },
+          "description": "Agencies known to be involved (roles only)."
+        },
+        "immediate_danger": {
+          "type": "boolean",
+          "description": "True if conditions posed an immediate life safety hazard at assessment."
+        },
+        "immediate_action_taken": {
+          "type": "string",
+          "description": "Concise note of immediate mitigation (e.g. isolated_circuit, removed_portable_heater, called_999)."
+        },
+        "referrals_made": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Opaque IDs/links to referral records in the host system."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "description": "Decision outputs used to trigger planning actions.",
+      "properties": {
+        "relevant_resident": {
+          "type": "boolean",
+          "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
+        },
+        "peep_required": {
+          "type": "boolean",
+          "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Short justification for the decision, avoiding medical detail."
+        }
+      },
+      "required": [
+        "relevant_resident",
+        "peep_required",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Source/verification details for specific fields (self-report vs observed, etc.).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "JSON Pointer to the field (e.g. /capability/mobility_aid)."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "self_report",
+              "assessor_observed",
+              "third_party_record",
+              "system_generated"
+            ],
+            "description": "Who/how the info originated."
+          },
+          "evidence": {
+            "type": "string",
+            "enum": [
+              "visual_inspection",
+              "verbal_account",
+              "document_seen",
+              "device_log",
+              "photo_evidence",
+              "other_evidence"
+            ],
+            "description": "What supports the value recorded."
+          },
+          "confidence_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "description": "Confidence in this specific item (if different from overall)."
+          },
+          "recorded_by_role": {
+            "type": "string",
+            "description": "Role/capacity of the person recording (e.g. housing_officer, front_desk, self)."
+          },
+          "verified_by_role": {
+            "type": "string",
+            "description": "If verified, who verified (role only, not name)."
+          },
+          "verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was verified (if applicable)."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short, non-sensitive clarifier if needed."
+          }
+        },
+        "required": [
+          "path",
+          "source"
+        ],
+        "additionalProperties": false
       }
     },
-    "total_score": { "type": "integer", "minimum": 0 },
-    "risk_rating": { "type": "string", "enum": ["low","medium","high","very_high"] },
-    "recommended_review_in_days": { "type": "integer", "minimum": 0 },
-    "review": { "$ref": "https://openpeep.org/schemas/2025-08/common/review.schema.json" }
+    "reviews": {
+      "type": "array",
+      "description": "Lifecycle reviews of this PCFRA.",
+      "items": {
+        "$ref": "../../common/review.schema.json"
+      }
+    },
+    "environment_other_notes": {
+      "type": "string",
+      "description": "Optional plain-language notes for any environmental/safeguarding items that do not fit enumerations (keep minimal)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional free text for clarifications\u2014kept minimal and non-sensitive."
+    },
+    "attachments": {
+      "type": "array",
+      "description": "Optional list of host-system attachment identifiers (no files embedded).",
+      "items": {
+        "type": "string"
+      }
+    }
   },
-  "required": ["pcfra_id", "subject", "location", "assessment_date", "risk_factors", "review"]
+  "required": [
+    "person_ref",
+    "assessed_at",
+    "assessment_method",
+    "outcome"
+  ],
+  "allOf": [
+    {
+      "oneOf": [
+        {
+          "required": [
+            "building_ref"
+          ]
+        },
+        {
+          "required": [
+            "unit_ref"
+          ]
+        }
+      ]
+    }
+  ],
+  "additionalProperties": false
 }

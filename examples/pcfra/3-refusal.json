@@ -1,0 +1,17 @@
+{
+  "pcfra_id": "refusal-001",
+  "version": "1.0",
+  "person_ref": "person:ZX-77",
+  "building_ref": "building:riverside-court",
+  "assessed_at": "2025-08-10T09:00:00Z",
+  "assessor_role": "housing_officer",
+  "assessment_method": "phone",
+  "confidence_level": "low",
+  "consent_ref": "consent:ZX-77-refused",
+  "outcome": {
+    "relevant_resident": true,
+    "peep_required": false,
+    "rationale": "Resident declined to provide information; insufficient data to determine need\u2014recorded refusal for audit."
+  },
+  "notes": "Offer to reassess in person was declined. Advice leaflet issued."
+}

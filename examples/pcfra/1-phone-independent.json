@@ -1,0 +1,48 @@
+{
+  "pcfra_id": "7e6b7f9a-1b6a-4c8f-8a9e-0c3c2e9e1b01",
+  "version": "1.0",
+  "person_ref": "person:12345",
+  "building_ref": "building:oxford-house",
+  "assessed_at": "2025-08-18T10:15:00Z",
+  "assessor_role": "housing_officer",
+  "assessment_method": "phone",
+  "confidence_level": "medium",
+  "consent_ref": "consent:98765",
+  "capability": {
+    "walking_endurance": "normal_pace",
+    "respiratory_tolerance": "normal",
+    "mobility_transfer": "independent_transfer",
+    "stair_tolerance": "stairs_independent",
+    "mobility_aid": "none",
+    "hearing_support": "none",
+    "vision_support": "none",
+    "cognition_support": "none",
+    "communication_support": "plain_language",
+    "night_response": "wakes_to_alarm",
+    "equipment_dependency": "none",
+    "behavioural_risks": [],
+    "assist_required": "none",
+    "equipment_needed": []
+  },
+  "outcome": {
+    "relevant_resident": true,
+    "peep_required": false,
+    "rationale": "Independent mobility; alarms understood; no equipment dependency."
+  },
+  "provenance": [
+    {
+      "path": "/capability/mobility_aid",
+      "source": "self_report",
+      "evidence": "verbal_account",
+      "confidence_level": "medium",
+      "recorded_by_role": "housing_officer"
+    },
+    {
+      "path": "/capability/stair_tolerance",
+      "source": "self_report",
+      "evidence": "verbal_account",
+      "confidence_level": "medium",
+      "recorded_by_role": "housing_officer"
+    }
+  ]
+}

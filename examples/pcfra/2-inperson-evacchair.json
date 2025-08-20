@@ -1,0 +1,58 @@
+{
+  "pcfra_id": "2b2f1d22-5f44-4d1f-9a1c-3b2b9f01acde",
+  "version": "1.0",
+  "person_ref": "person:W-204",
+  "unit_ref": "flat:12B",
+  "assessed_at": "2025-08-12T14:30:00Z",
+  "assessor_role": "fire_safety_advisor",
+  "assessment_method": "in_person",
+  "confidence_level": "high",
+  "consent_ref": "consent:W-204-2025-08",
+  "capability": {
+    "walking_endurance": "limited_distance",
+    "respiratory_tolerance": "frequent_breaks_required",
+    "mobility_transfer": "stand_pivot_with_support",
+    "stair_tolerance": "cannot_use_stairs",
+    "mobility_aid": "wheelchair_manual",
+    "hearing_support": "visual_alerts_required",
+    "vision_support": "high_contrast_signage",
+    "cognition_support": "step_by_step_prompts",
+    "communication_support": "plain_language",
+    "night_response": "requires_vibrating_pillow",
+    "alertness_support": "prompts_needed_when_distressed",
+    "equipment_dependency": "none",
+    "behavioural_risks": [
+      "hoarding_observed"
+    ],
+    "assist_required": "needs_assist_2",
+    "equipment_needed": [
+      "evac_chair_required"
+    ]
+  },
+  "environment": {
+    "access_egress": "exit_partially_blocked"
+  },
+  "outcome": {
+    "relevant_resident": true,
+    "peep_required": true,
+    "rationale": "Cannot use stairs; requires two-person assist and evac chair; additional prompts needed."
+  },
+  "notes": "Evac chair storage and trained responders required on relevant floors.",
+  "provenance": [
+    {
+      "path": "/capability/stair_tolerance",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "confidence_level": "high",
+      "recorded_by_role": "fire_safety_advisor"
+    },
+    {
+      "path": "/environment/access_egress",
+      "source": "assessor_observed",
+      "evidence": "visual_inspection",
+      "recorded_by_role": "fire_safety_advisor",
+      "verified_by_role": "housing_officer",
+      "verified_at": "2025-08-12T15:00:00Z"
+    }
+  ]
+}
