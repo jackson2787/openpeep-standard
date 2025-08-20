@@ -22,15 +22,18 @@
         "cannot_use_stairs"
       ]
     },
-    "chair_use": {
+    "mobility_aid": {
       "type": "string",
       "enum": [
-        "none",
-        "walking_aid",
-        "wheelchair_self",
-        "wheelchair_assisted",
-        "evac_chair_required"
-      ]
+    "none",
+    "walking_stick",
+    "crutches",
+    "walking_frame",
+    "assisted_walking",
+    "wheelchair_self",
+    "wheelchair_assisted",
+    "evac_chair_required"
+  ]
     },
     "sensory_hearing": {
       "type": "string",
