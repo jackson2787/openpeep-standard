@@ -56,6 +56,51 @@ When drafting schemas:
 
 ---
 
+## PCFRA Structure (Personal + Environmental)
+
+A PCFRA (Person-Centred Fire Risk Assessment) is designed to capture both **personal functional capability** and **environmental context**:
+
+- **Personal PCFRA**  
+  Focuses on the individual’s evacuation ability (mobility, sensory, cognitive, communication, awareness, assistance needs).  
+  Portable: can follow the person across different environments.  
+  Assessment method may be self-assessment, phone interview, or in-person.
+
+- **Environmental PCFRA**  
+  Focuses on the dwelling or setting. Observed risks such as: presence of smoke alarms, electrical hazards, hoarding, cooking practices, anti-social behaviour.  
+  Typically in-person. Anchored to the location rather than the person.
+
+These may be captured separately but are joined together when producing a **PEEP**.
+
+---
+
+## PEEP Application Contexts
+
+PEEPs must work across **different environments**, with variations in process and duty:
+
+- **Residential settings** (flats, sheltered housing, care homes):  
+  Required under RPEEP in residential contexts from 2026.  
+  Anchored to both the individual and the property.  
+  Often long-term.
+
+- **Workplaces and industrial sites**:  
+  Employers have a duty under Fire Safety Order and H&S legislation.  
+  May be short-term (contractors) or permanent (employees).  
+  Typically part of fire risk management.
+
+- **Public buildings** (universities, hospitals, transport hubs):  
+  Equality Act requires reasonable adjustments.  
+  PEEPs may be needed for staff, students, or visitors.  
+  Often integrated with wider accessibility planning.
+
+- **Transient or temporary settings** (hotels, hostels, student halls):  
+  Short-term PEEPs are needed.  
+  Portability and ease of consent are critical.  
+  Should minimise burden on individuals while still enabling safe evacuation.
+
+OpenPEEP must support **portability and consistency** across all these contexts, while maintaining compliance with UK law and international portability principles.
+
+---
+
 ## Scope & Boundaries
 - **PCFRA**: captures assessment outputs & decision flags. No medical diagnoses. Includes method (self/phone/in-person), provenance, and consent reference.  
 - **PEEP**: final plan. References PCFRA + consent. Contains evacuation procedure, contact info, equipment, etc.  
@@ -105,16 +150,18 @@ Every schema/document change must:
 
 ---
 
-## Concept Model (simplified)
+## Concept Model (expanded)
 ```
 Person Profile ─┐
                 │
-                ├─> PCFRA ─┐
-                │          │
-Consent ────────┘          │
-                           ├─> PEEP ──> Evacuation Procedure
-Review (lifecycle) ────────┘
-EES (building/person statement) ──────┘
+                ├─> Personal PCFRA ─┐
+                │                   │
+Consent ────────┘                   │
+                                    ├─> PEEP ──> Evacuation Procedure
+                ┌─> Environmental PCFRA ┘
+                │
+Review (lifecycle) ───────────────────────────────┘
+EES (building/person statement) ──────────────────┘
 ```
 
 ---
