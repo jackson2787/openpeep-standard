@@ -15,16 +15,22 @@
     "stair_tolerance": "cannot_use_stairs",
     "mobility_aid": "wheelchair_manual",
     "hearing_support": "visual_alerts_required",
+    "sensory_hearing": "reduced",
     "vision_support": "high_contrast_signage",
+    "sensory_vision": "low_vision",
     "cognition_support": "step_by_step_prompts",
+    "cognition_ability": "mild_support_needed",
     "communication_support": "plain_language",
+    "communication_ability": "mild_difficulty",
     "night_response": "requires_vibrating_pillow",
     "alertness_support": "prompts_needed_when_distressed",
+    "alertness_effects": "mildly_affected",
     "equipment_dependency": "none",
     "behavioural_risks": [
       "hoarding_observed"
     ],
     "assist_required": "needs_assist_2",
+    "assist_level": "constant_support",
     "equipment_needed": [
       "evac_chair_required"
     ]

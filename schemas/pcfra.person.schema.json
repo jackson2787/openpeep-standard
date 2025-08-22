@@ -55,51 +55,169 @@
       "properties": {
         "walking_endurance": {
           "type": "string",
-          "description": "Functional ability to sustain walking to an exit (e.g. normal_pace, needs_frequent_breaks, limited_distance)."
+          "enum": [
+            "normal_pace",
+            "needs_frequent_breaks",
+            "limited_distance",
+            "cannot_walk"
+          ],
+          "description": "Functional ability to sustain walking to an exit."
         },
         "respiratory_tolerance": {
           "type": "string",
-          "description": "Breathing-related tolerance during evacuation (e.g. normal, mild_breathlessness_on_exertion, frequent_breaks_required, oxygen_support_needed)."
+          "enum": [
+            "normal",
+            "mild_breathlessness_on_exertion",
+            "frequent_breaks_required",
+            "oxygen_support_needed"
+          ],
+          "description": "Breathing-related tolerance during evacuation."
         },
         "mobility_transfer": {
           "type": "string",
-          "description": "Ability to stand, pivot, or transfer (e.g. independent_transfer, stand_pivot_with_support)."
+          "enum": [
+            "independent_transfer",
+            "stand_pivot_with_support",
+            "hoist_or_full_lift_required",
+            "unable_to_transfer"
+          ],
+          "description": "Ability to stand, pivot, or transfer."
         },
         "stair_tolerance": {
           "type": "string",
-          "description": "Functional tolerance for stairs (e.g. stairs_independent, stairs_with_assist, cannot_use_stairs)."
+          "enum": [
+            "stairs_independent",
+            "stairs_with_assist",
+            "cannot_use_stairs"
+          ],
+          "description": "Functional tolerance for stairs."
         },
         "mobility_aid": {
           "type": "string",
-          "description": "Primary mobility aid used (e.g. none, stick, frame, wheelchair_manual, wheelchair_powered, assisted_walking)."
+          "enum": [
+            "none",
+            "stick",
+            "frame",
+            "assisted_walking",
+            "wheelchair_manual",
+            "wheelchair_powered"
+          ],
+          "description": "Primary mobility aid used."
         },
         "hearing_support": {
           "type": "string",
-          "description": "Support required for alerts/communication (e.g. hearing_aid, visual_alerts_required, vibrating_pager)."
+          "enum": [
+            "none",
+            "hearing_aid",
+            "visual_alerts_required",
+            "vibrating_pager"
+          ],
+          "description": "Support required for alerts/communication."
+        },
+        "sensory_hearing": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "reduced",
+            "profound"
+          ],
+          "description": "Baseline hearing ability relevant to evacuation (not a diagnosis)."
         },
         "vision_support": {
           "type": "string",
-          "description": "Support required for wayfinding/alerts (e.g. high_contrast_signage, tactile_guidance)."
+          "enum": [
+            "none",
+            "high_contrast_signage",
+            "tactile_guidance",
+            "additional_lighting"
+          ],
+          "description": "Support required for wayfinding/alerts."
+        },
+        "sensory_vision": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "low_vision",
+            "blind"
+          ],
+          "description": "Baseline vision ability relevant to evacuation (not a diagnosis)."
         },
         "cognition_support": {
           "type": "string",
-          "description": "Support with understanding/decision-making (e.g. step_by_step_prompts, carer_guidance_required)."
+          "enum": [
+            "none",
+            "step_by_step_prompts",
+            "carer_guidance_required"
+          ],
+          "description": "Support with understanding/decision-making."
+        },
+        "cognition_ability": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "mild_support_needed",
+            "significant_support_needed"
+          ],
+          "description": "Ability to understand and follow emergency instructions."
         },
         "communication_support": {
           "type": "string",
-          "description": "Preferred/required methods (e.g. plain_language, BSL, AAC_device, text_only)."
+          "enum": [
+            "none",
+            "plain_language",
+            "BSL",
+            "AAC_device",
+            "text_only"
+          ],
+          "description": "Preferred/required communication methods."
+        },
+        "communication_ability": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "mild_difficulty",
+            "severe_difficulty",
+            "non_verbal"
+          ],
+          "description": "Ability to communicate or understand emergency instructions when needed."
         },
         "night_response": {
           "type": "string",
-          "description": "Likely responsiveness when asleep (e.g. wakes_to_alarm, requires_vibrating_pillow, deep_sleeper_support)."
+          "enum": [
+            "wakes_to_alarm",
+            "requires_vibrating_pillow",
+            "deep_sleeper_support"
+          ],
+          "description": "Likely responsiveness when asleep."
         },
         "alertness_support": {
           "type": "string",
-          "description": "If reactions when awake may require prompts/adjustments (optional companion to night_response)."
+          "enum": [
+            "none",
+            "prompts_needed_when_distressed",
+            "simplified_instructions_required"
+          ],
+          "description": "If reactions when awake require prompts/adjustments."
+        },
+        "alertness_effects": {
+          "type": "string",
+          "enum": [
+            "typical",
+            "mildly_affected",
+            "significantly_affected"
+          ],
+          "description": "Whether medication/substances are likely to affect responsiveness to alarms or instructions."
         },
         "equipment_dependency": {
           "type": "string",
-          "description": "Critical equipment affecting evacuation (e.g. oxygen_therapy, powered_bed)."
+          "enum": [
+            "none",
+            "oxygen_therapy",
+            "ventilation_device",
+            "powered_bed",
+            "other_equipment"
+          ],
+          "description": "Critical equipment affecting evacuation."
         },
         "behavioural_risks": {
           "type": "array",
@@ -120,13 +238,34 @@
         },
         "assist_required": {
           "type": "string",
-          "description": "Summary of human assistance required (e.g. none, needs_assist_1, needs_assist_2)."
+          "enum": [
+            "none",
+            "needs_assist_1",
+            "needs_assist_2"
+          ],
+          "description": "Summary of human assistance required."
+        },
+        "assist_level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "occasional_support",
+            "constant_support"
+          ],
+          "description": "Level of human assistance needed to evacuate (derived from assessment question)."
         },
         "equipment_needed": {
           "type": "array",
           "description": "Evacuation equipment likely required (e.g. evac_chair_required, transfer_board, evacuation_sheet).",
           "items": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "evac_chair_required",
+              "transfer_board",
+              "evacuation_sheet",
+              "stair_climber",
+              "rescue_sledge"
+            ]
           }
         }
       },

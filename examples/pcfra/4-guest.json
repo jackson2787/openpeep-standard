@@ -14,8 +14,16 @@
     "mobility_transfer": "independent_transfer",
     "stair_tolerance": "stairs_independent",
     "mobility_aid": "none",
+    "hearing_support": "none",
+    "sensory_hearing": "typical",
+    "vision_support": "none",
+    "sensory_vision": "typical",
+    "cognition_support": "none",
+    "cognition_ability": "typical",
     "communication_support": "plain_language",
+    "communication_ability": "typical",
     "night_response": "wakes_to_alarm",
+    "alertness_effects": "typical",
     "behavioural_risks": []
   },
   "outcome": {
