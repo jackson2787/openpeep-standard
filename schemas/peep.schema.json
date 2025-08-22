@@ -2,14 +2,47 @@
   "$id": "https://openpeep.org/schemas/2025-08/peep.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Personal Emergency Evacuation Plan (PEEP)",
+  "description": "Resident- or person-specific evacuation plan derived from PCFRA capability outputs and building context. Stores the step-by-step procedure, assistance, communications adjustments, and cross-references to source assessments/statements. Designed for portability and lifecycle management.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "peep_id": { "type": "string", "format": "uuid" },
-    "person_profile": { "$ref": "https://openpeep.org/schemas/2025-08/common/person_profile.schema.json" },
-    "location": { "$ref": "https://openpeep.org/schemas/2025-08/common/address.schema.json" },
+    "person_profile": { "$ref": "https://openpeep.org/schemas/common/person_profile.schema.json" },
+    "address": { "$ref": "https://openpeep.org/schemas/common/address.schema.json" },
     "evacuation_strategy": { "type": "string", "enum": ["Stay Put", "Simultaneous Evacuation", "Phased Evacuation", "Partial Evacuation"] },
+    "language": { "type": "string", "description": "Primary language code for plan content (ISO 639-1)." },
+    "translations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "language": { "type": "string", "description": "Language code (ISO 639-1)." },
+          "summary": { "type": "string", "description": "Plain-language summary of the plan in the specified language." }
+        },
+        "required": ["language", "summary"]
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "created_at": { "type": "string", "format": "date-time", "description": "When this plan was created (UTC recommended)." },
+        "created_by": { "type": "string", "description": "Author or system identifier at creation time." },
+        "method": { "type": "string", "enum": ["self_assessment", "phone_interview", "in_person", "other"], "description": "How the information was obtained." },
+        "version_ref": { "type": "string", "description": "External version or change reference, if any." },
+        "document_ref": { "type": "string", "format": "uri", "description": "URI or system reference for the canonical record." }
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "effective_from": { "type": "string", "format": "date", "description": "Date from which this plan is effective." },
+        "effective_to": { "type": "string", "format": "date", "description": "Date after which this plan should not be used (if set)." }
+      }
+    },
     "routes": {
       "type": "array",
       "items": {
@@ -17,16 +50,19 @@
         "additionalProperties": false,
         "properties": {
           "name": { "type": "string", "description": "e.g., Primary, Secondary" },
-          "path_description": { "type": "string" },
-          "via_structural_elements": { "type": "array", "items": { "type": "string" } },
+          "path_description": { "type": "string", "description": "Plain-language description of the route." },
+          "via_structural_elements": { "type": "array", "items": { "type": "string" }, "description": "List of corridors, stairs, lobbies or similar identifiers." },
           "assistance": {
             "type": "array",
             "items": {
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "type": { "type": "string", "enum": ["evac_chair","buddy_pair","carry_down","guided_evacuate","lift_with_attendant"] },
+                "type": { "type": "string", "enum": ["evac_chair", "buddy_pair", "carry_down", "guided_evacuate", "lift_with_attendant"] },
                 "persons_required": { "type": "integer", "minimum": 0 },
+                "role": { "type": "string", "description": "Role responsible for this assistance (e.g., concierge team)." },
+                "competency_proof_ref": { "type": "string", "description": "Reference to training/competency evidence, if recorded elsewhere." },
+                "availability": { "type": "string", "description": "Availability window or conditions for assistants, if applicable." },
                 "notes": { "type": "string" }
               },
               "required": ["type"]
@@ -41,6 +77,10 @@
               "wait_condition": { "type": "string" }
             }
           },
+          "muster_point": { "type": "string", "description": "Destination for roll call (if applicable)." },
+          "preconditions": { "type": "string", "description": "Conditions that must be satisfied to use this route." },
+          "contingency": { "type": "string", "description": "Fallback if this route is untenable or unavailable." },
+          "evacuation_lift_use": { "type": "boolean", "description": "Whether this route anticipates using an evacuation lift with appropriate controls/attendants." },
           "notes": { "type": "string" }
         },
         "required": ["name", "path_description"]
@@ -50,13 +90,34 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "alarm_hearing_ability": { "type": "string", "enum": ["hears_audible","needs_visual","needs_vibration","unknown"] },
-        "alerting_methods": { "type": "array", "items": { "type": "string" } }
+        "alarm_hearing_ability": { "type": "string", "enum": ["hears_audible", "needs_visual", "needs_vibration", "unknown"] },
+        "alerting_methods": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["visual_beacons", "vibrating_pager", "text_message", "phone_call", "door_knock", "public_address"] },
+          "uniqueItems": true
+        },
+        "alerting_needs": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["visual_beacons", "vibrating_pager", "text_only", "captioned_media", "bsl_interpreter_required", "high_contrast", "large_print", "plain_language"] },
+          "uniqueItems": true
+        },
+        "notes": { "type": "string" }
       }
     },
     "nighttime_considerations": { "type": "string" },
     "training_drills": { "type": "string" },
-    "medical_considerations": { "type": "string" },
+    "critical_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": { "type": "string", "enum": ["oxygen_support", "power_for_mobility_device", "carer_support", "medication_reminder", "other"] },
+          "notes": { "type": "string" }
+        },
+        "required": ["type"]
+      }
+    },
     "evacuation_procedure": {
       "type": "array",
       "items": {
@@ -69,16 +130,60 @@
         "required": ["order", "instruction"]
       }
     },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "role": { "type": "string" },
+          "organisation": { "type": "string" },
+          "contact": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "phone": { "type": "string" },
+              "email": { "type": "string", "format": "email" }
+            }
+          },
+          "notes": { "type": "string" }
+        },
+        "required": ["role"]
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": { "type": "string" },
+          "uri": { "type": "string", "format": "uri" },
+          "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+        },
+        "required": ["label", "uri"]
+      }
+    },
     "references": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "pcfra_id": { "type": "string" },
-        "building_statement_ees_id": { "type": "string" }
+        "pcfra_id": { "type": "string", "description": "Identifier of the source PCFRA informing this plan." },
+        "building_statement_ees_id": { "type": "string", "description": "Identifier of the relevant EES building statement." }
       }
     },
-    "consent": { "$ref": "https://openpeep.org/schemas/2025-08/common/consent.schema.json" },
-    "review": { "$ref": "https://openpeep.org/schemas/2025-08/common/review.schema.json" }
+    "consent": { "$ref": "https://github.com/jackson2787/openpeep-standard/blob/main/schemas/common/consent.schema.json" },
+    "review": { "$ref": "https://github.com/jackson2787/openpeep-standard/raw/main/schemas/common/review.schema.json" },
+    "extensions": {
+      "type": "object",
+      "description": "Optional jurisdiction or vendor-specific extensions (e.g., gbr, eu, usa, vendor::<orgCode>).",
+      "properties": {
+        "gbr": { "type": "object" },
+        "eu": { "type": "object" },
+        "usa": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
   },
-  "required": ["peep_id", "person_profile", "location", "evacuation_strategy", "routes", "evacuation_procedure", "review"]
+  "required": ["peep_id", "person_profile", "address", "evacuation_strategy", "routes", "evacuation_procedure", "review"]
 }

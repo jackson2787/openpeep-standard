@@ -1,8 +1,0 @@
-{
-  "person_ref": "guest-abc123",
-  "alias": "Room 214 Guest",
-  "communication_preferences": {
-    "channels": ["sms"],
-    "format_preferences": ["plain_language"]
-  }
-}
