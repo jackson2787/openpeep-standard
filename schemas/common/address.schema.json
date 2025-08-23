@@ -1,37 +1,37 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openpeep.org/schemas/common/address.schema.json",
+  "$id": "https://openpeep-standard.org/schemas/common/address.schema.json",
   "title": "Address",
   "description": "Minimal postal/location identity schema for OpenPEEP documents. Provides unambiguous location information while excluding geometry, routing, or operational intelligence.",
   "$comment": "Regulatory alignment: Fire Safety (Residential Evacuation Plans) (England) Regulations 2025; Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010; Approved Document B; NFCC PCF Framework; optional BS 9991/9999/7974; EN 81-76.",
   "type": "object",
   "properties": {
-    "organisation_name": {
+    "organisationName": {
       "type": "string",
       "description": "Organisation or landlord associated with the address, if applicable."
     },
-    "building_name": {
+    "buildingName": {
       "type": "string",
       "description": "Named building, e.g. Churchill House."
     },
-    "building_number": {
+    "buildingNumber": {
       "type": "string",
       "description": "Street number or range, kept as string to support non-UK formats."
     },
-    "sub_building": {
+    "subBuilding": {
       "type": "string",
       "description": "Sub-division such as flat, unit, or room number (e.g., 'Flat 12A', 'Room 4B').",
       "$comment": "Regulatory relevance: supports unit/flat-level precision needed for RPEEPs and reasonable adjustments."
     },
-    "address_line_1": {
+    "addressLine1": {
       "type": "string",
       "description": "First address line (usually street name)."
     },
-    "address_line_2": {
+    "addressLine2": {
       "type": "string",
       "description": "Second address line, optional."
     },
-    "address_line_3": {
+    "addressLine3": {
       "type": "string",
       "description": "Third address line, optional."
     },
@@ -39,7 +39,7 @@
       "type": "string",
       "description": "Locality, village, or district."
     },
-    "town_city": {
+    "townCity": {
       "type": "string",
       "description": "Town or city name."
     },
@@ -49,11 +49,10 @@
     },
     "postcode": {
       "type": "string",
-      "description": "UK postcode if applicable (leave empty for countries without a postcode or with non-UK formats).",
-      "pattern": "^[A-Z]{1,2}[0-9][0-9A-Z]? ?[0-9][A-Z]{2}$",
-      "$comment": "Regulatory relevance: supports UK statutory traceability and correspondence under Fire Safety Regulations 2025 and the Building Safety Act golden thread."
+      "description": "Postal code if applicable. Do not enforce country-specific formats in the core schema.",
+      "$comment": "Portability: UK-specific validation may be added under extensions.gbr if needed."
     },
-    "country_code": {
+    "countryCode": {
       "type": "string",
       "description": "ISO 3166-1 alpha-2 country code.",
       "default": "GB"
@@ -67,21 +66,36 @@
       "type": "string",
       "description": "Royal Mail Unique Delivery Point Reference Number (optional)."
     },
-    "national_address_id": {
+    "nationalAddressId": {
       "type": "string",
       "description": "Generic slot for a national or regional address ID (e.g. cadastre or municipal ID)."
     },
-    "building_ref": {
+    "buildingRef": {
       "type": "string",
       "description": "Stable OpenPEEP reference for the building. String only; not a linkage object.",
       "$comment": "Boundary: OpenPEEP stable ref only; excludes proprietary DigiPEEP modelling concepts."
     },
-    "unit_ref": {
+    "unitRef": {
       "type": "string",
       "description": "Stable OpenPEEP reference for a specific unit, flat, or room. String only; not a linkage object."
     }
   },
   "required": [],
   "additionalProperties": false,
-  "$comment2": "Boundary guard: Geometry, routing, and ops/access properties are intentionally excluded (lat/lon, geojson, route_path, stair/lift/refuge IDs, muster points, QR/NFC/access codes, FRS RR, hazards)."
+  "extensions": {
+    "type": "object",
+    "description": "Optional jurisdiction/vendor extensions. For UK-specific validation or IDs, use the gbr slot.",
+    "properties": {
+      "gbr": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "postcode": { "type": "string", "pattern": "^[A-Za-z]{1,2}[0-9][0-9A-Za-z]? ?[0-9][A-Za-z]{2}$" }
+        }
+      },
+      "eu": { "type": "object" },
+      "usa": { "type": "object" }
+    },
+    "additionalProperties": true
+  }
 }

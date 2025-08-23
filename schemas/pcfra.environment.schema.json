@@ -6,7 +6,7 @@
   "$comment": "Regulatory alignment: Fire Safety (Residential Evacuation Plans) (England) Regulations 2025 (from Apr 2026); Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010 (reasonable adjustments); Approved Document B (Fire Safety); NFCC Person-Centred Fire Risk Framework.",
   "type": "object",
   "properties": {
-    "pcfra_id": {
+    "pcfraId": {
       "type": "string",
       "description": "Stable identifier for this PCFRA record (e.g. UUID)."
     },
@@ -14,24 +14,24 @@
       "type": "string",
       "description": "Schema/document version tag for auditability."
     },
-    "building_ref": {
+    "buildingRef": {
       "type": "string",
       "description": "Identifier for the relevant building/facility. Use when unit_ref is not applicable."
     },
-    "unit_ref": {
+    "unitRef": {
       "type": "string",
       "description": "Identifier for a specific unit/flat/room within a building."
     },
-    "assessed_at": {
+    "assessedAt": {
       "type": "string",
       "format": "date-time",
       "description": "ISO 8601 timestamp of the assessment."
     },
-    "assessor_role": {
+    "assessorRole": {
       "type": "string",
       "description": "Role/capacity of the person recording the assessment (e.g. housing_officer, fire_safety_advisor, self)."
     },
-    "assessment_method": {
+    "assessmentMethod": {
       "type": "string",
       "enum": [
         "phone",
@@ -40,7 +40,7 @@
       ],
       "description": "How the assessment was performed."
     },
-    "confidence_level": {
+    "confidenceLevel": {
       "type": "string",
       "enum": [
         "low",
@@ -49,7 +49,7 @@
       ],
       "description": "Overall confidence in the information captured, considering method and context."
     },
-    "consent_ref": {
+    "consentRef": {
       "type": "string",
       "description": "Link to a Consent record (given/refused/withdrawn) in common/consent."
     },
@@ -73,7 +73,7 @@
           "type": "string",
           "description": "E.g. pathways_narrowed, combustible_load_high, doors_blocked."
         },
-        "access_egress": {
+        "accessEgress": {
           "type": "string",
           "description": "E.g. exit_blocked, exit_partially_blocked, key_management_issue."
         },
@@ -95,11 +95,11 @@
       "type": "object",
       "description": "Escalation and multi‑agency context (no detailed police/medical data).",
       "properties": {
-        "asb_violence_risk": {
+        "asbViolenceRisk": {
           "type": "string",
           "description": "E.g. ASB_reported, threats_to_staff, police_attendance_history (no case details)."
         },
-        "agency_involved": {
+        "agencyInvolved": {
           "type": "array",
           "items": {
             "type": "string",
@@ -114,15 +114,15 @@
           },
           "description": "Agencies known to be involved (roles only)."
         },
-        "immediate_danger": {
+        "immediateDanger": {
           "type": "boolean",
           "description": "True if conditions posed an immediate life safety hazard at assessment."
         },
-        "immediate_action_taken": {
+        "immediateActionTaken": {
           "type": "string",
           "description": "Concise note of immediate mitigation (e.g. isolated_circuit, removed_portable_heater, called_999)."
         },
-        "referrals_made": {
+        "referralsMade": {
           "type": "array",
           "items": {
             "type": "string"
@@ -136,11 +136,11 @@
       "type": "object",
       "description": "Decision outputs used to trigger planning actions.",
       "properties": {
-        "relevant_resident": {
+        "relevantResident": {
           "type": "boolean",
           "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
         },
-        "peep_required": {
+        "peepRequired": {
           "type": "boolean",
           "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
         },
@@ -150,8 +150,8 @@
         }
       },
       "required": [
-        "relevant_resident",
-        "peep_required",
+        "relevantResident",
+        "peepRequired",
         "rationale"
       ],
       "additionalProperties": false
@@ -188,7 +188,7 @@
             ],
             "description": "What supports the value recorded."
           },
-          "confidence_level": {
+          "confidenceLevel": {
             "type": "string",
             "enum": [
               "low",
@@ -197,15 +197,15 @@
             ],
             "description": "Confidence in this specific item (if different from overall)."
           },
-          "recorded_by_role": {
+          "recordedByRole": {
             "type": "string",
             "description": "Role/capacity of the person recording (e.g. housing_officer, front_desk, self)."
           },
-          "verified_by_role": {
+          "verifiedByRole": {
             "type": "string",
             "description": "If verified, who verified (role only, not name)."
           },
-          "verified_at": {
+          "verifiedAt": {
             "type": "string",
             "format": "date-time",
             "description": "When the item was verified (if applicable)."
@@ -226,7 +226,7 @@
       "type": "array",
       "description": "Lifecycle reviews of this PCFRA.",
       "items": {
-        "$ref": "../../common/review.schema.json"
+        "$ref": "https://openpeep-standard.org/schemas/common/review.schema.json"
       }
     },
     "environment_other_notes": {
@@ -246,8 +246,8 @@
     }
   },
   "required": [
-    "assessed_at",
-    "assessment_method",
+    "assessedAt",
+    "assessmentMethod",
     "outcome"
   ],
   "allOf": [
@@ -255,12 +255,12 @@
       "oneOf": [
         {
           "required": [
-            "building_ref"
+            "buildingRef"
           ]
         },
         {
           "required": [
-            "unit_ref"
+            "unitRef"
           ]
         }
       ]

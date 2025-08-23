@@ -6,7 +6,7 @@
   "$comment": "Regulatory alignment: Fire Safety (Residential Evacuation Plans) (England) Regulations 2025 (from Apr 2026); Regulatory Reform (Fire Safety) Order 2005; Building Safety Act 2022 (golden thread); Equality Act 2010 (reasonable adjustments); Approved Document B (Fire Safety); NFCC Person-Centred Fire Risk Framework.",
   "type": "object",
   "properties": {
-    "pcfra_id": {
+    "pcfraId": {
       "type": "string",
       "description": "Stable identifier for this PCFRA record (e.g. UUID)."
     },
@@ -14,20 +14,20 @@
       "type": "string",
       "description": "Schema/document version tag for auditability."
     },
-    "person_ref": {
+    "personRef": {
       "type": "string",
       "description": "Identifier linking to the Person Profile in the host system."
     },
-    "assessed_at": {
+    "assessedAt": {
       "type": "string",
       "format": "date-time",
       "description": "ISO 8601 timestamp of the assessment."
     },
-    "assessor_role": {
+    "assessorRole": {
       "type": "string",
       "description": "Role/capacity of the person recording the assessment (e.g. housing_officer, fire_safety_advisor, self)."
     },
-    "assessment_method": {
+    "assessmentMethod": {
       "type": "string",
       "enum": [
         "phone",
@@ -36,7 +36,7 @@
       ],
       "description": "How the assessment was performed."
     },
-    "confidence_level": {
+    "confidenceLevel": {
       "type": "string",
       "enum": [
         "low",
@@ -45,7 +45,7 @@
       ],
       "description": "Overall confidence in the information captured, considering method and context."
     },
-    "consent_ref": {
+    "consentRef": {
       "type": "string",
       "description": "Link to a Consent record (given/refused/withdrawn) in common/consent."
     },
@@ -53,7 +53,7 @@
       "type": "object",
       "description": "Functional evacuation capabilities and supports required. Use functional phrases; avoid diagnoses.",
       "properties": {
-        "walking_endurance": {
+        "walkingEndurance": {
           "type": "string",
           "enum": [
             "normal_pace",
@@ -63,7 +63,7 @@
           ],
           "description": "Functional ability to sustain walking to an exit."
         },
-        "respiratory_tolerance": {
+        "respiratoryTolerance": {
           "type": "string",
           "enum": [
             "normal",
@@ -73,7 +73,7 @@
           ],
           "description": "Breathing-related tolerance during evacuation."
         },
-        "mobility_transfer": {
+        "mobilityTransfer": {
           "type": "string",
           "enum": [
             "independent_transfer",
@@ -83,7 +83,7 @@
           ],
           "description": "Ability to stand, pivot, or transfer."
         },
-        "stair_tolerance": {
+        "stairTolerance": {
           "type": "string",
           "enum": [
             "stairs_independent",
@@ -92,7 +92,7 @@
           ],
           "description": "Functional tolerance for stairs."
         },
-        "mobility_aid": {
+        "mobilityAid": {
           "type": "string",
           "enum": [
             "none",
@@ -104,7 +104,7 @@
           ],
           "description": "Primary mobility aid used."
         },
-        "hearing_support": {
+        "hearingSupport": {
           "type": "string",
           "enum": [
             "none",
@@ -114,7 +114,7 @@
           ],
           "description": "Support required for alerts/communication."
         },
-        "sensory_hearing": {
+        "sensoryHearing": {
           "type": "string",
           "enum": [
             "typical",
@@ -123,7 +123,7 @@
           ],
           "description": "Baseline hearing ability relevant to evacuation (not a diagnosis)."
         },
-        "vision_support": {
+        "visionSupport": {
           "type": "string",
           "enum": [
             "none",
@@ -133,7 +133,7 @@
           ],
           "description": "Support required for wayfinding/alerts."
         },
-        "sensory_vision": {
+        "sensoryVision": {
           "type": "string",
           "enum": [
             "typical",
@@ -142,7 +142,7 @@
           ],
           "description": "Baseline vision ability relevant to evacuation (not a diagnosis)."
         },
-        "cognition_support": {
+        "cognitionSupport": {
           "type": "string",
           "enum": [
             "none",
@@ -151,7 +151,7 @@
           ],
           "description": "Support with understanding/decision-making."
         },
-        "cognition_ability": {
+        "cognitionAbility": {
           "type": "string",
           "enum": [
             "typical",
@@ -160,7 +160,7 @@
           ],
           "description": "Ability to understand and follow emergency instructions."
         },
-        "communication_support": {
+        "communicationSupport": {
           "type": "string",
           "enum": [
             "none",
@@ -171,7 +171,7 @@
           ],
           "description": "Preferred/required communication methods."
         },
-        "communication_ability": {
+        "communicationAbility": {
           "type": "string",
           "enum": [
             "typical",
@@ -181,7 +181,7 @@
           ],
           "description": "Ability to communicate or understand emergency instructions when needed."
         },
-        "night_response": {
+        "nightResponse": {
           "type": "string",
           "enum": [
             "wakes_to_alarm",
@@ -190,7 +190,7 @@
           ],
           "description": "Likely responsiveness when asleep."
         },
-        "alertness_support": {
+        "alertnessSupport": {
           "type": "string",
           "enum": [
             "none",
@@ -199,7 +199,7 @@
           ],
           "description": "If reactions when awake require prompts/adjustments."
         },
-        "alertness_effects": {
+        "alertnessEffects": {
           "type": "string",
           "enum": [
             "typical",
@@ -208,7 +208,7 @@
           ],
           "description": "Whether medication/substances are likely to affect responsiveness to alarms or instructions."
         },
-        "equipment_dependency": {
+        "equipmentDependency": {
           "type": "string",
           "enum": [
             "none",
@@ -219,7 +219,7 @@
           ],
           "description": "Critical equipment affecting evacuation."
         },
-        "behavioural_risks": {
+        "behaviouralRisks": {
           "type": "array",
           "description": "Observed behaviours increasing risk (observable, non-diagnostic).",
           "items": {
@@ -236,7 +236,7 @@
             ]
           }
         },
-        "assist_required": {
+        "assistRequired": {
           "type": "string",
           "enum": [
             "none",
@@ -245,7 +245,7 @@
           ],
           "description": "Summary of human assistance required."
         },
-        "assist_level": {
+        "assistLevel": {
           "type": "string",
           "enum": [
             "none",
@@ -254,7 +254,7 @@
           ],
           "description": "Level of human assistance needed to evacuate (derived from assessment question)."
         },
-        "equipment_needed": {
+        "equipmentNeeded": {
           "type": "array",
           "description": "Evacuation equipment likely required (e.g. evac_chair_required, transfer_board, evacuation_sheet).",
           "items": {
@@ -275,11 +275,11 @@
       "type": "object",
       "description": "Decision outputs used to trigger planning actions.",
       "properties": {
-        "relevant_resident": {
+        "relevantResident": {
           "type": "boolean",
           "description": "True if the person is in scope for Residential Evacuation Plans under the 2025 Regulations."
         },
-        "peep_required": {
+        "peepRequired": {
           "type": "boolean",
           "description": "True if a PEEP/RPEEP is required based on capabilities and risk."
         },
@@ -289,8 +289,8 @@
         }
       },
       "required": [
-        "relevant_resident",
-        "peep_required",
+        "relevantResident",
+        "peepRequired",
         "rationale"
       ],
       "additionalProperties": false
@@ -327,7 +327,7 @@
             ],
             "description": "What supports the value recorded."
           },
-          "confidence_level": {
+          "confidenceLevel": {
             "type": "string",
             "enum": [
               "low",
@@ -336,15 +336,15 @@
             ],
             "description": "Confidence in this specific item (if different from overall)."
           },
-          "recorded_by_role": {
+          "recordedByRole": {
             "type": "string",
             "description": "Role/capacity of the person recording (e.g. housing_officer, front_desk, self)."
           },
-          "verified_by_role": {
+          "verifiedByRole": {
             "type": "string",
             "description": "If verified, who verified (role only, not name)."
           },
-          "verified_at": {
+          "verifiedAt": {
             "type": "string",
             "format": "date-time",
             "description": "When the item was verified (if applicable)."
@@ -365,7 +365,7 @@
       "type": "array",
       "description": "Lifecycle reviews of this PCFRA.",
       "items": {
-        "$ref": "../../common/review.schema.json"
+        "$ref": "https://openpeep-standard.org/schemas/common/review.schema.json"
       }
     },
     "notes": {
@@ -381,9 +381,9 @@
     }
   },
   "required": [
-    "person_ref",
-    "assessed_at",
-    "assessment_method",
+    "personRef",
+    "assessedAt",
+    "assessmentMethod",
     "outcome"
   ],
   "additionalProperties": false

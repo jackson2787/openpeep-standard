@@ -1,5 +1,5 @@
 {
-  "$id": "https://github.com/jackson2787/openpeep-standard/raw/main/schemas/common/review.schema.json",
+  "$id": "https://openpeep-standard.org/schemas/common/review.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Review",
   "description": "Reusable review block for lifecycle tracking across OpenPEEP documents (PCFRA, PEEP, RPEEP, EES). Records review metadata and outcomes without duplicating consent logic. Aligned with the Regulatory Reform (Fire Safety) Order 2005, Building Safety Act 2022 (golden thread), and Fire Safety (England) Regulations 2025.",

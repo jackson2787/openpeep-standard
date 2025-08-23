@@ -1,12 +1,12 @@
 {
-  "$id": "https://openpeep.org/schemas/common/person_profile.schema.json",
+  "$id": "https://openpeep-standard.org/schemas/common/person_profile.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Person Profile",
   "description": "Minimal identifying information for a person associated with a PCFRA, PEEP, RPEEP, or EES. Identity anchor only: no impairments, no evacuation needs, no medical/function data.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "person_ref": {
+    "personRef": {
       "type": "string",
       "description": "Unique reference identifier for this person within the system.",
       "$comment": "Regulatory relevance: Building Safety Act 2022 (golden thread) – consistent linkage across safety records."
@@ -26,13 +26,13 @@
       "description": "Date of birth (ISO 8601). Use only if strictly required; may be substituted by age_band.",
       "$comment": "Data minimisation (UK GDPR)."
     },
-    "age_band": {
+    "ageBand": {
       "type": "string",
       "enum": ["child", "adult", "older_adult"],
       "description": "Approximate age group if DOB not provided.",
       "$comment": "NFCC Person-Centred Fire Risk Framework – high-level risk awareness by age group without storing exact DOB."
     },
-    "preferred_language": {
+    "preferredLanguage": {
       "type": "string",
       "description": "Preferred language for communication (ISO 639-1 two-letter codes).",
       "$comment": "Equality Act 2010 – reasonable adjustments for communication."
@@ -47,7 +47,7 @@
       "description": "Optional contact details for communication.",
       "$comment": "FSO 2005 – duty to consult and inform relevant persons."
     },
-    "communication_preferences": {
+    "communicationPreferences": {
       "type": "object",
       "description": "Optional preferences for contact channels and accessible formats. Records how to communicate, not why. No health/impairment data.",
       "$comment": "Equality Act 2010 (reasonable adjustments); FSO 2005 (consult/inform); Building Safety Act 2022 (golden thread metadata).",
@@ -70,7 +70,7 @@
           "uniqueItems": true,
           "description": "Preferred contact channels. Preference only; no reason recorded."
         },
-        "format_preferences": {
+        "formatPreferences": {
           "type": "array",
           "items": {
             "type": "string",
@@ -94,7 +94,7 @@
           "maxLength": 500,
           "description": "Optional brief clarification of preferences (avoid health/impairment details)."
         },
-        "consent_ref": {
+        "consentRef": {
           "type": "string",
           "description": "Optional link to a Consent record governing communications.",
           "$comment": "Capture lawful basis, refusal, or withdrawal in the separate Consent schema."
@@ -102,5 +102,5 @@
       }
     }
   },
-  "required": ["person_ref"]
+  "required": ["personRef"]
 }

@@ -1,5 +1,5 @@
 {
-  "$id": "https://openpeep.org/schemas/2025-08/ees.schema.json",
+  "$id": "https://openpeep-standard.org/schemas/ees/2025-08/ees.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Emergency Evacuation Statements (EES)",
   "type": "object",
@@ -9,15 +9,15 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "target_person_id": { "type": "string", "format": "uuid" },
-        "plain_language_instructions": { "type": "string", "description": "Clear, accessible instructions for the named person" },
-        "assistance_required": {
+        "targetPersonId": { "type": "string", "format": "uuid" },
+        "plainLanguageInstructions": { "type": "string", "description": "Clear, accessible instructions for the named person" },
+        "assistanceRequired": {
           "type": "array",
           "items": { "type": "string" },
           "description": "e.g., buddy assistance, evac chair, guidance"
         },
         "equipment": { "type": "array", "items": { "type": "string" } },
-        "contact_on_alarm": {
+        "contactOnAlarm": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -38,13 +38,13 @@
           }
         }
       },
-      "required": ["plain_language_instructions"]
+      "required": ["plainLanguageInstructions"]
     }
   },
   "properties": {
     "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "ees_id": { "type": "string", "format": "uuid" },
-    "address": { "$ref": "https://openpeep.org/schemas/2025-08/common/address.schema.json" },
+    "eesId": { "type": "string", "format": "uuid" },
+    "address": { "$ref": "https://openpeep-standard.org/schemas/common/address.schema.json" },
     "building_statement": {
       "type": "object",
       "additionalProperties": false,
@@ -54,8 +54,8 @@
           "enum": ["Stay Put", "Simultaneous Evacuation", "Phased Evacuation", "Partial Evacuation"]
         },
         "instructions": { "type": "string", "description": "Plain-language building-wide instructions" },
-        "alarms_info": { "type": "string", "description": "Alarm types, tones, visual alerts" },
-        "evacuation_lift": {
+        "alarmsInfo": { "type": "string", "description": "Alarm types, tones, visual alerts" },
+        "evacuationLift": {
           "type": "object",
           "properties": {
             "available": { "type": "boolean" },
@@ -63,10 +63,10 @@
           },
           "additionalProperties": false
         },
-        "refuge_locations": { "type": "array", "items": { "type": "string" } },
-        "muster_point": { "type": "string" },
-        "stay_put_conditions": { "type": "string", "description": "When 'Stay Put' ceases to apply" },
-        "variations_by_level": {
+        "refugeLocations": { "type": "array", "items": { "type": "string" } },
+        "musterPoint": { "type": "string" },
+        "stayPutConditions": { "type": "string", "description": "When 'Stay Put' ceases to apply" },
+        "variationsByLevel": {
           "type": "array",
           "items": {
             "type": "object",
@@ -79,7 +79,7 @@
       "required": ["strategy", "instructions"]
     },
     "person_statement": { "$ref": "#/$defs/person_statement" },
-    "review": { "$ref": "https://openpeep.org/schemas/2025-08/common/review.schema.json" },
+    "review": { "$ref": "https://openpeep-standard.org/schemas/common/review.schema.json" },
     "metadata": {
       "type": "object",
       "properties": {
@@ -90,5 +90,5 @@
       "additionalProperties": false
     }
   },
-  "required": ["ees_id", "address", "building_statement", "review"]
+  "required": ["eesId", "address", "building_statement", "review"]
 }
