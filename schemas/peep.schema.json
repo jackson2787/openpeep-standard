@@ -6,12 +6,13 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "schemaVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "Semantic version of the PEEP schema used to validate this document (SEMVER)." },
     "peepId": { "type": "string", "format": "uuid" },
     "personProfile": { "$ref": "https://openpeep-standard.org/schemas/common/person_profile.schema.json" },
     "address": { "$ref": "https://openpeep-standard.org/schemas/common/address.schema.json" },
-    "evacuation_strategy": { "type": "string", "enum": ["Stay Put", "Simultaneous Evacuation", "Phased Evacuation", "Partial Evacuation"] },
+    "evacuationStrategy": { "type": "string", "enum": ["Stay Put", "Simultaneous Evacuation", "Phased Evacuation", "Partial Evacuation"] },
     "language": { "type": "string", "description": "Primary language code for plan content (ISO 639-1)." },
+    "planSummary": { "type": "string", "description": "Plain-language, audience-neutral summary of the evacuation plan. Communicates key actions at-a-glance for residents, staff, and responders. Do not include PCFRA details; link via references." },
     "translations": {
       "type": "array",
       "items": {
@@ -32,8 +33,10 @@
         "createdBy": { "type": "string", "description": "Author or system identifier at creation time." },
         "method": { "type": "string", "enum": ["self_assessment", "phone_interview", "in_person", "other"], "description": "How the information was obtained." },
         "versionRef": { "type": "string", "description": "External version or change reference, if any." },
-        "documentRef": { "type": "string", "format": "uri", "description": "URI or system reference for the canonical record." }
-      }
+        "documentRef": { "type": "string", "format": "uri", "description": "URI or system reference for the canonical record." },
+        "status": { "type": "string", "enum": ["draft", "approved", "superseded", "withdrawn"], "description": "Document control status aligned to governance and review lifecycle." }
+      },
+      "required": ["createdAt", "createdBy", "status"]
     },
     "validity": {
       "type": "object",
@@ -50,7 +53,7 @@
         "additionalProperties": false,
         "properties": {
           "name": { "type": "string", "description": "e.g., Primary, Secondary" },
-          "path_description": { "type": "string", "description": "Plain-language description of the route." },
+          "pathDescription": { "type": "string", "description": "Plain-language description of the route." },
           "viaStructuralElements": { "type": "array", "items": { "type": "string" }, "description": "List of corridors, stairs, lobbies or similar identifiers." },
           "assistance": {
             "type": "array",
@@ -74,7 +77,7 @@
             "additionalProperties": false,
             "properties": {
               "location": { "type": "string" },
-              "wait_condition": { "type": "string" }
+              "waitCondition": { "type": "string" }
             }
           },
           "musterPoint": { "type": "string", "description": "Destination for roll call (if applicable)." },
@@ -83,7 +86,7 @@
           "evacuationLiftUse": { "type": "boolean", "description": "Whether this route anticipates using an evacuation lift with appropriate controls/attendants." },
           "notes": { "type": "string" }
         },
-        "required": ["name", "path_description"]
+        "required": ["name", "pathDescription"]
       }
     },
     "communications": {
@@ -101,11 +104,17 @@
           "items": { "type": "string", "enum": ["visual_beacons", "vibrating_pager", "text_only", "captioned_media", "bsl_interpreter_required", "high_contrast", "large_print", "plain_language"] },
           "uniqueItems": true
         },
+        "raiseAlarmMethods": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["manual_call_point", "pull_cord", "intercom", "phone_call", "call_999", "pendant", "other"] },
+          "uniqueItems": true,
+          "description": "How the individual can raise the alarm, if required. Enumerated for portability; extend via extensions.* if needed."
+        },
         "notes": { "type": "string" }
       }
     },
-    "nighttime_considerations": { "type": "string" },
-    "training_drills": { "type": "string" },
+    "nighttimeConsiderations": { "type": "string" },
+    "trainingDrills": { "type": "string" },
     "criticalDependencies": {
       "type": "array",
       "items": {
@@ -118,7 +127,7 @@
         "required": ["type"]
       }
     },
-    "evacuation_procedure": {
+    "evacuationProcedure": {
       "type": "array",
       "items": {
         "type": "object",
@@ -194,5 +203,5 @@
       "additionalProperties": true
     }
   },
-  "required": ["peepId", "personProfile", "address", "evacuation_strategy", "routes", "evacuation_procedure", "review"]
+  "required": ["peepId", "personProfile", "address", "evacuationStrategy", "routes", "evacuationProcedure", "planSummary"]
 }

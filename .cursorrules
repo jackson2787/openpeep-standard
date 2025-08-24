@@ -46,15 +46,9 @@ rules:
   # Identifiers, versioning, and extensibility
   - Use stable $id URIs that will remain valid across versions (e.g. https://openpeep-standard.org/schemas/...).
   - Adopt Semantic Versioning (SEMVER) for schemas and publish a CHANGELOG entry per material change.
-  - Provide an “extensions” object pattern to allow vendor/jurisdiction additions without forking:
-      extensions:
-        gbr?: {}
-        eu?: {}
-        usa?: {}
-        vendor::<orgCode>?: {}
+  
   - Maintain strict backward-compat rules:
-    - Non-breaking = add optional fields, broaden enums; Breaking = remove/rename/retighten.
-    - Mark deprecated fields with clear “deprecated” and “sunsetAfter” notes in descriptions.
+
 
   # Interoperability & profiles
   - Define a portable “core” for each schema and optional “profiles” (e.g. gbr-core, eu-core) in docs.
@@ -91,11 +85,7 @@ rules:
     - CODE_OF_CONDUCT.md.
   - Provide a minimum of one end-to-end example bundle (array-of-doc-parts) demonstrating references/links.
 
-  # Testing & validation
-  - Ensure GitHub Actions (or CI) validates schemas and runs example validation.
-  - Include lightweight JSON-LD contexts as optional artefacts where they improve interoperability (do not
-    force RDF/LD into the core schemas).
-  - If geospatial fields are present, ensure they are optional and OGC GeoJSON-compatible.
+  
 
   # Authoring behaviours inside Cursor
   - When adding fields, explain in description WHY it exists and WHICH consumer needs it (person/building/authority).
